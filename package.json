@@ -1,0 +1,31 @@
+{
+  "name": "project-support",
+  "version": "1.0.0",
+  "description": " a ticket based support system Where people can raise an issue or doubt with whatever they have and get real time solutions by industry expert mentors",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashvin14/project-support.git"
+  },
+  "keywords": [
+    "support"
+  ],
+  "author": "Ashvin khairnar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashvin14/project-support/issues"
+  },
+  "homepage": "https://github.com/ashvin14/project-support#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "events": "^1.1.1",
+    "express": "^4.15.3",
+    "jade": "^1.11.0",
+    "mongoose": "^4.10.6",
+    "nodemailer": "^4.0.1",
+    "pug": "^2.0.0-rc.2"
+  }
+}

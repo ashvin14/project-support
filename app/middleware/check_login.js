@@ -1,6 +1,6 @@
 exports.check = function(req,res,next){
 
-	if(req.user){
+	if(req.session.user){
 	
 		
 		next();

@@ -23,14 +23,30 @@ var eventEmitter = new events.EventEmitter();
 var jade = require('jade');
 
 var emailSender = require('./../middleware/emailsender.js')
-    //an export function
+var expressJWT = require('express-jwt');
+var jwt = require('jsonwebtoken');
+
+//an export function
 module.exports.controllerFunction = function(app) {
-    //1. we will create a route to get all queries/tickets from database to client when he is not loggedIn
+    //lets intialize sessions with cookie parser and express-session
+    app.use(require('cookie-parser')());
+    app.use(require('express-session')({
+        secret: 'keyboard  cat',
+        resave: true,
+        saveUninitialized: true
+
+    }));
+
+
+    //protecting the routes using JWT
+    app.use('/', expressJWT({ secret: '9gag forever' }).unless({ path: ['/signup', '/queries', '/login'] }))
+        //1. we will create a route to get all queries/tickets from database to client when he is not loggedIn
     route.get('/queries', function(req, res) {
 
             //1.3 User can click on any doubt and look at the conversations without auth
+            if(req.session.user !='admin'){
 
-            queries.find({}, function(err, queries) {
+            	 queries.find({}, function(err, queries) {
                 if (err)
                     throw err;
                 else
@@ -41,6 +57,15 @@ module.exports.controllerFunction = function(app) {
             })
 
 
+
+
+
+            }
+            else 
+            	redirect('/support/queries')
+
+           
+
         })
         //1.4 User cannot post doubt ,if User wants to he must login
 
@@ -48,23 +73,48 @@ module.exports.controllerFunction = function(app) {
 
 
     route.post('/login', function(req, res) {
-            if (req.body.email && req.body.password) {
-                //check if the user exist or not
-                userModel.find({$and:[{email:req.body.email},{password:req.body.password}]},function(req,res){
+        //check if the user exist or not
+        if (req.body.email != undefined && req.body.password != undefined) {
+            if (req.body.email != 'yashkhrnr2@gmail.com' && req.body.password != 'pass123') {
+                userModel.find({ $and: [{ email: req.body.email }, { password: req.body.password }] }, function(err, profile) {
+                    if (err)
+                        throw err;
+                    else{
+                        //lets create an cookie to store this information for future use
+                        req.session.user = profile;
+                    var myToken = jwt.sign({ username: req.body.username, password: req.body.password }, '9gag forever')
+                    res.json({ "user":profile,"token": myToken });
+
+                    //remember to save this token in frontEnd and use it whenever 
+                    //interacting with server side APIs send it in authorization Headers
+                    //i.e in third parameter of post request
+
+
+
+                    }
                     
                 })
+            }
+            else{
+            	var myToken = jwt.sign({ username:req.body.email}, '9gag forever')
+                   
 
-
-
-
+            	req.session.user = 'admin'
+            	 res.json({ "user":req.session.user,"token": myToken });
             }
 
 
 
-        })
-        // a route to signup the user,here we also create an event to mail the user about his
-        //successful signup
-        //for that we will use nodemailer and event
+
+        }
+
+
+
+    })
+
+    // a route to signup the user,here we also create an event to mail the user about his
+    //successful signup
+    //for that we will use nodemailer and event
     route.post('/signup', function(req, res) {
         //check if req.body.name ,password and email is blank or not
         if (req.body.email != undefined && req.body.name != undefined && req.body.password != undefined) {
@@ -76,7 +126,7 @@ module.exports.controllerFunction = function(app) {
 
             eventEmitter.on('signup', function() {
                 //an export functions which sends email
-                emailSender.FunctionToSendEmail(req.body.email, 'welcome-email.jade', 'Welcome to support!')
+                emailSender.FunctionToSendEmail(req.body.email, 'welcome-email.jade', 'Welcome to support!',req.body.name)
             })
 
             user.save(function(err, result) {

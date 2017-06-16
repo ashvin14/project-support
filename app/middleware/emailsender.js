@@ -10,7 +10,7 @@ var FunctionToChooseEmailFromTemplates = function(file) {
     //app/controllers/mail-templates
 
 }
-exports.FunctionToSendEmail = function(email, File, sub) {
+exports.FunctionToSendEmail = function(email, File, sub,name) {
 
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
@@ -31,7 +31,7 @@ exports.FunctionToSendEmail = function(email, File, sub) {
             //compile jade template into function
             var compiledTmpl = jade.compile(file, { filename: template });
             // set context to be used in template
-            var context = { title: 'Express' };
+            var context = { params: name };
             // get html back as a string with the context applied;
             var htmlmessage = compiledTmpl(context);
 

@@ -15,11 +15,13 @@ var bodyParser = require('body-parser');
 
 var app = express();
 //initialized express app.
-
+//for monitoring app
+app.use(require('morgan')('dev'))
 
 app.use(bodyParser());
 //initialized body parser
-
+//intialized in my directory
+app.use('/',express.static(__dirname + '/frontend/'));
 
 fs.readdirSync('./app/controllers').forEach(function(file){
 	if(file.indexOf('.js')){

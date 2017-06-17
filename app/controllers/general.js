@@ -26,6 +26,10 @@ var emailSender = require('./../middleware/emailsender.js')
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 
+
+
+
+
 //an export function
 module.exports.controllerFunction = function(app) {
     //lets intialize sessions with cookie parser and express-session
@@ -38,40 +42,78 @@ module.exports.controllerFunction = function(app) {
     }));
 
 
+
     //protecting the routes using JWT
-    app.use('/', expressJWT({ secret: '9gag forever' }).unless({ path: ['/signup', '/queries', '/login'] }))
+    app.use("/", expressJWT({
+        secret: '9gag forever',
+        getToken: function fromCookie(req) {
+            var token = req.cookies.access_token || req.body.access_token || req.query.access_token || req.headers['x-access-token'];
+            if (token) {
+                return token;
+            }
+            return null;
+        }
+    }).unless({
+        path: [
+            '/',
+            '/signup',
+            '/queries',
+            '/login',
+
+        ]
+    }));
+
+    //verifying token using custom middleware
+    app.use(function(err, req, res, next) {
+
+        if(req.path == '/' || req.path =='/signup' || req.path == '/login' || req.path == '/queries' || req.path == '/favicon.ico'){
+            
+               
+        }
+           
+            if (err.name === 'UnauthorizedError') {
+                return res.status(403).send({
+                    success: false,
+                    message: 'No token provided.'
+                });
+            }
+        })
         //1. we will create a route to get all queries/tickets from database to client when he is not loggedIn
+
     route.get('/queries', function(req, res) {
 
             //1.3 User can click on any doubt and look at the conversations without auth
-            if(req.session.user !='admin'){
+            if (req.session.user != 'admin') {
 
-            	 queries.find({}, function(err, queries) {
-                if (err)
-                    throw err;
-                else
-                    res.json({
-                        'status': 'notLoggedIn',
-                        'queries': queries
-                    });
-            })
-
-
+                queries.find({}, function(err, queries) {
+                    if (err)
+                        throw err;
+                    else
+                        res.json({
+                            'status': 'notLoggedIn',
+                            'queries': queries
+                        });
+                })
 
 
 
-            }
-            else 
-            	redirect('/support/queries')
 
-           
+
+            } else
+                redirect('/support/queries')
+
+
 
         })
         //1.4 User cannot post doubt ,if User wants to he must login
 
-    //a route to login the user 
 
+    route.get('/loggout', function(req, res) {
+        delete req.session.user;
+        res.json({ "loggdOut": true });
+    })
 
+    //a route to login the user
     route.post('/login', function(req, res) {
         //check if the user exist or not
         if (req.body.email != undefined && req.body.password != undefined) {
@@ -79,28 +121,27 @@ module.exports.controllerFunction = function(app) {
                 userModel.find({ $and: [{ email: req.body.email }, { password: req.body.password }] }, function(err, profile) {
                     if (err)
                         throw err;
-                    else{
+                    else {
                         //lets create an cookie to store this information for future use
                         req.session.user = profile;
-                    var myToken = jwt.sign({ username: req.body.username, password: req.body.password }, '9gag forever')
-                    res.json({ "user":profile,"token": myToken });
+                        var myToken = jwt.sign({ username: req.body.username, password: req.body.password }, '9gag forever')
+                        res.json({ "user": profile, "token": myToken });
 
-                    //remember to save this token in frontEnd and use it whenever 
-                    //interacting with server side APIs send it in authorization Headers
-                    //i.e in third parameter of post request
+                        //remember to save this token in frontEnd and use it whenever 
+                        //interacting with server side APIs send it in authorization Headers
+                        //i.e in third parameter of post request
 
 
 
                     }
-                    
-                })
-            }
-            else{
-            	var myToken = jwt.sign({ username:req.body.email}, '9gag forever')
-                   
 
-            	req.session.user = 'admin'
-            	 res.json({ "user":req.session.user,"token": myToken });
+                })
+            } else {
+                var myToken = jwt.sign({ username: req.body.email }, '9gag forever')
+
+
+                req.session.user = 'admin'
+                res.json({ "user": req.session.user, "token": myToken });
             }
 
 
@@ -126,7 +167,7 @@ module.exports.controllerFunction = function(app) {
 
             eventEmitter.on('signup', function() {
                 //an export functions which sends email
-                emailSender.FunctionToSendEmail(req.body.email, 'welcome-email.jade', 'Welcome to support!',req.body.name)
+                emailSender.FunctionToSendEmail(req.body.email, 'welcome-email.jade', 'Welcome to support!', req.body.name)
             })
 
             user.save(function(err, result) {

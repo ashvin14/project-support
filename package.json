@@ -30,7 +30,11 @@
     "jade": "^1.11.0",
     "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.10.6",
+    "morgan": "^1.8.2",
     "nodemailer": "^4.0.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth2": "^0.1.6",
     "pug": "^2.0.0-rc.2"
   }
 }

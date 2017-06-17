@@ -1,0 +1,235 @@
+.header {
+    background: #3e474f;
+    z-index: 100;
+}
+
+ul {
+    list-style: none;
+}
+
+.header-navigation {
+    height: 100%;
+}
+
+.header-nav-item-primary {
+    line-height: 40px;
+}
+
+.header-nav-link:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.header-nav-item-sign-up .header-nav-link {
+    color: #5fcf80;
+}
+
+.header-nav-link {
+    display: block;
+    color: #b2bbbd;
+}
+
+@media screen and (min-width:680px) {
+    .header {
+        height: 70px
+    }
+    .header-nav-item-glyphyicon {
+        text-align: center;
+        font-size: 100px;
+    }
+    .header-nav-item {
+        line-height: 70px;
+    }
+    .header-nav-item {
+        position: relative;
+        font-weight: 500;
+        font-size: 30px;
+    }
+    .header-nav-item-signup {
+        float: right;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        color: #5fcf80;
+        z-index: 101;
+        font-size: 22px;
+    }
+    .status {
+        position: absolute;
+        right: 0;
+        bottom: 22px;
+        font-size: 22px;
+        color: white;
+        padding: 5;
+        border: solid;
+        border-radius: 7px;
+    }
+    .header-nav-item-query {
+        position: absolute;
+        bottom: -2px;
+        font-size: 22px;
+    }
+}
+
+@media screen and (max-width:679px) {
+    .header {
+        height: 50px;
+    }
+    .header-nav-list {
+        list-style: none;
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .header-nav-list {
+        padding-top: 85px;
+    }
+    .header-nav-item {
+        line-height: 50px;
+    }
+    .header-nav-item-glyphyicon {
+        position: absolute;
+        top: 1px;
+        left: 0px;
+        float: left;
+        margin: 0;
+        height: 56px;
+        color: #b2bbbd;
+        font-size: 20px !important;
+    }
+    .header-nav-item-query {
+        position: absolute;
+        right: 72px;
+        bottom: 35px;
+        font-size: 13px;
+    }
+}
+
+.header-nav-item-signup {
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    color: #5fcf80;
+    z-index: 101;
+}
+
+.discussion-meta {
+    margin: 0 70px 0 68px;
+}
+
+.status {
+    position: absolute;
+    right: 0;
+    bottom: 74;
+    font-size: 22px;
+    color: white;
+    padding: 0;
+    border: solid;
+    border-radius: 7px;
+}
+
+
+}
+.header-nav-item {
+    font-weight: 600;
+}
+body {
+    font-family: 'Nunito', sans-serif !important;
+    background: #edeff0 !important;
+    color: #576366;
+    -webkit-font-smoothing: antialiased;
+    transition: padding-top 600ms 0s ease;
+}
+.header-nav-list {
+    list-style: none;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+}
+.box-header {
+    /* margin: 20px; */
+    
+    margin: 20px 0px 20px 0px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 7px;
+}
+.discussion-list {
+    margin: 1px 0 0;
+    padding-left: 0px;
+}
+.discussion-item {
+    padding: 25px 0;
+    border-bottom: 1px solid #f0f2f4 !important;
+    position: relative;
+    border-bottom: black;
+}
+.discussion-avatar {
+    float: left;
+}
+.avatar {
+    height: 40px;
+    width: 40px;
+}
+.discussion-meta {
+    margin-top: -35px;
+    margin-left: 80px;
+    margin-bottom: 0;
+}
+.discussion-title {
+    font-weight: 500;
+    font-size: 16px;
+    padding: 4px 0;
+    line-height: 1.4;
+    text-decoration: none;
+    color: black;
+}
+.discussion-title a:hover {
+    text-decoration: none;
+    color: black;
+}
+.discussion-title a {
+    color: black;
+    font-weight: 300;
+}
+h2 {
+    color: #384047;
+    display: block;
+    font-weight: 500;
+    margin: 0;
+    text-rendering: optimizeLegibility;
+}
+.discussion-byline {
+    font-size: 13px;
+    color: #7b8b8e;
+    margin: 0;
+    line-height: 1.4;
+}
+.discussion-tags {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 15px 0 0;
+    padding-left: 0px;
+}
+.discussion-tags li {
+    display: inline-block;
+    border: 2px solid #d2d2d2;
+    border-radius: 18px;
+    padding: 0 18;
+    margin: 4px;
+}
+.status-open {
+    color: #ff5379;
+}
+.status-closed {
+    color: #55ff00;
+}

@@ -51,10 +51,12 @@ module.exports.controllerFunction = function(app) {
     var FunctionToReturnDiscussionBasedOnQuery = function(query) {
         //this function returns a discussion as well as query 
         return new Promise(function(resolve, reject) {
-           //a query to find appropriate discussion for that query
+            //a query to find appropriate discussion for that query
+         
             disscussion.find({ Query_id: ObjectId(query[0]._id) }, function(error, disscussion) {
                 if (error) throw error;
                 else {
+                    
                     var querypost = {
                         Query: query,
                         disscussion: disscussion
@@ -91,8 +93,8 @@ module.exports.controllerFunction = function(app) {
         // a basic route to return a json of all queries
 
         if (req.session.user != 'admin') {
-        //it checks if api accessor is an admin or not 
-        // if he is not admin then he gives him queries only associated with him.
+            //it checks if api accessor is an admin or not 
+            // if he is not admin then he gives him queries only associated with him.
             query.find({ Query_uploader: ObjectId(req.session.user[0]._id) }, function(error, queries) {
                 if (error)
                     throw error;
@@ -128,107 +130,113 @@ module.exports.controllerFunction = function(app) {
     })
 
     //an route to delete a query
-    route.delete('/queries/delete/:id',function(req,res){
-        //we delete a query by its id 
-        query.deleteOne({_id:ObjectId(req.params.id)},function(error,updatedqueries){
-            if(error)throw error;
-            else
-                
-            eventEmitter.on('delete_query',function(){
-                emailSender.FunctionToSendEmail(req.session.user[0].email,'delete_query.jade','Query successfully deleted!',null)
+    route.delete('/queries/delete/:id', function(req, res) {
+            //we delete a query by its id 
+            query.deleteOne({ _id: ObjectId(req.params.id) }, function(error, updatedqueries) {
+                    if (error) throw error;
+                    else
+
+                        eventEmitter.on('delete_query', function() {
+                            emailSender.FunctionToSendEmail(req.session.user[0].email, 'delete_query.jade', 'Query successfully deleted!', null)
+                        })
+                        //to let admin know about deletion of query by user
+                        eventEmitter.emit('delete_query')
+                })
+                //also we delete associated disscussion with the query
+                //make sure that this route is not accessed by admin
+            disscussion.deleteOne({ Query_id: ObjectId(req.params.id) }, function(error, resutl) {
+                if (error) throw error;
+                else {
+                    res.json({})
+                }
             })
-            //to let admin know about deletion of query by user
-        })
-        //also we delete associated disscussion with the query
-        //make sure that this route is not accessed by admin
-        discussion.deleteOne({Query_id:ObjectId(req.params.id)},function(error,resutl){
-            if(error)throw error;
-            else{
-                res.json({})
-            }
-        })
-    })
+        }) //end of delete route
 
 
     //a route to edit the query
     //again make sure that it is inaccessible to admin
     //this can be done by hiding the button in frontEnd
-    route.put('/queries/edit',function(req,res){
-        //saving latest changes in mongo
-        query.findOneAndUpdate({_id:req.body.id},{$set:{
-            Query_status:req.body.Query_status,
-            Query_title:req.body.Query_title,
-            Query_details:req.body.Query_details,
-            tags:req.body.tags
-            
-        }},function(error,result){
-            if(error)throw error
-            else{
+    route.put('/queries/edit', function(req, res) {
+            //saving latest changes in mongo
+            query.findOneAndUpdate({ _id: req.body.id }, {
+                $set: {
+                    Query_status: req.body.Query_status,
+                    Query_title: req.body.Query_title,
+                    Query_details: req.body.Query_details,
+                    tags: req.body.tags
 
-                 res.json(result)
-            }
-            
-        })
+                }
+            }, function(error, result) {
+                if (error) throw error
+                else {
 
-    })
-    //route to change status of query depending upon if the query is resolved 
-    //in userEnd or not
-    route.put('/queries/statusChanged',function(req,res){
-        //updating status of query
-        query.findOneAndUpdate({_id:req.body.id},{$set:{
-            Query_status:req.body.Query_status
-        }},function(error,result){
-            if(error)throw error;
-            else{
-                //sending mail to admin when the status is closed
-                eventEmitter.on('status_update',function(){
-                    emailSender.FunctionToSendEmail('yashkhrnr2@gmail.com','status_email.jade','Query of '+req.session.user[0].name+' has resolved',req.session.user[0].name)
-                })
-                res.json(result);
-                eventEmitter.emit('status_update');
-            }
-        })
-    })
-    route.post('/queries/post', function(req, res) {
-        //saving Query details in mongo
-
-        if (req.body.Query_title != undefined && req.body.Query_details != undefined && req.body.tags != undefined && req.body.status != undefined) {
-            var ticket = new query({
-                Query_title: req.body.Query_title,
-                Query_details: req.body.Query_details,
-                tags: req.body.tags,
-                status: req.body.status,
-                Query_uploader: req.session.user[0]._id,
-                date: new Date()
-
-            })
-            eventEmitter.on('query_post', function() {
-                //an export functions which sends email
-                emailSender.FunctionToSendEmail(req.session.user[0].email, 'Query_post_email.jade', 'Your Query has Successfully posted!');
-            })
-
-
-            ticket.save(function(error, Query) {
-                if (error)
-                    throw error;
-                else { //Your Query has Successfully posted!
-
-                    eventEmitter.emit('query_post')
-                    res.json(Query)
-
+                    res.json(result)
                 }
 
             })
-        }
 
-    })
+        }) //end of put request
+        //route to change status of query depending upon if the query is resolved 
+        //in userEnd or not
+    route.put('/queries/statusChanged', function(req, res) {
+            //updating status of query
+            query.findOneAndUpdate({ _id: req.body.id }, {
+                $set: {
+                    Query_status: req.body.Query_status
+                }
+            }, function(error, result) {
+                if (error) throw error;
+                else {
+                    //sending mail to admin when the status is closed
+                    eventEmitter.on('status_update', function() {
+                        emailSender.FunctionToSendEmail('yashkhrnr2@gmail.com', 'status_email.jade', 'Query of ' + req.session.user[0].name + ' has resolved', req.session.user[0].name)
+                    })
+                    res.json(result);
+                    eventEmitter.emit('status_update');
+                }
+            })
+        }) //end of put route
+    route.post('/queries/post', function(req, res) {
+            //saving Query details in mongo
 
-    route.get('/queries/discussion/:id', function(req, res) {
+            if (req.body.Query_title != undefined && req.body.Query_details != undefined && req.body.tags != undefined && req.body.status != undefined) {
+                var ticket = new query({
+                    Query_title: req.body.Query_title,
+                    Query_details: req.body.Query_details,
+                    tags: req.body.tags,
+                    status: req.body.status,
+                    Query_uploader: req.session.user[0]._id,
+                    date: new Date()
+
+                })
+                eventEmitter.on('query_post', function() {
+                    //an export functions which sends email
+                    emailSender.FunctionToSendEmail(req.session.user[0].email, 'Query_post_email.jade', 'Your Query has Successfully posted!');
+                })
+
+
+                ticket.save(function(error, Query) {
+                    if (error)
+                        throw error;
+                    else { //Your Query has Successfully posted!
+
+                        eventEmitter.emit('query_post')
+                        res.json(Query)
+
+                    }
+
+                })
+            }
+
+        }) //end of post request
+     route.get('/queries/:id', function(req, res) {
         FunctionToReturnQuery(req.params.id).then(FunctionToReturnDiscussionBasedOnQuery).then(function(response) {
             res.json(response)
         })
 
     })
+
+    //end of get request
     route.post('/queries/discussion/post', function(req, res) {
         if (req.session.user != 'admin') {
             if (req.body.discussion_message != undefined) {
@@ -286,6 +294,8 @@ module.exports.controllerFunction = function(app) {
 
 
     })
+
+
 
 
 

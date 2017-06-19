@@ -2,6 +2,9 @@
     background: #3e474f;
     z-index: 100;
 }
+a:hover{
+	text-decoration:none !important;
+}
 
 ul {
     list-style: none;
@@ -61,7 +64,8 @@ ul {
         bottom: 22px;
         font-size: 22px;
         color: white;
-        padding: 5;
+        padding: 3px;
+        border-width: 1px;
         border: solid;
         border-radius: 7px;
     }
@@ -69,6 +73,7 @@ ul {
         position: absolute;
         bottom: -2px;
         font-size: 22px;
+        left: 0px;
     }
 }
 
@@ -130,8 +135,9 @@ ul {
     bottom: 74;
     font-size: 22px;
     color: white;
-    padding: 0;
+    padding: 3px;
     border: solid;
+    border-width: 1px;
     border-radius: 7px;
 }
 
@@ -233,3 +239,45 @@ h2 {
 .status-closed {
     color: #55ff00;
 }
+.footer hr{
+	border-top: 1px solid #cecece;
+}
+.description-footer h2{
+	font-weight:600;
+}
+.description-footer .lead{
+	font-size:12px;
+}
+.not-signin{
+	background-color:#dfe2de;
+	box-shadow:3px 3px 5px #888888;
+	padding:8px 0px 0px;
+}
+.not-signin p {
+    font-size: 13px;
+    margin: 0;
+    color: #7b8b8e;
+}
+.not-signin div{
+	display:inline-block;
+	
+
+}
+.not-signin .glyph{
+	position:relative;
+	margin-right:12px;
+	    top: -15px;
+}
+@media screen and (max-width:480px){
+    .glyph{
+        top:-6px  !important;
+    }
+}
+.not-signin .container{
+	   padding:0 30px 0 30px;
+}
+.not-signin-link{
+	color:#231d1d;
+}
+
+

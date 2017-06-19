@@ -43,43 +43,11 @@ module.exports.controllerFunction = function(app) {
 
 
 
-    //protecting the routes using JWT
-    app.use("/", expressJWT({
-        secret: '9gag forever',
-        getToken: function fromCookie(req) {
-            var token = req.cookies.access_token || req.body.access_token || req.query.access_token || req.headers['x-access-token'];
-            if (token) {
-                return token;
-            }
-            return null;
-        }
-    }).unless({
-        path: [
-            '/',
-            '/signup',
-            '/queries',
-            '/login',
 
-        ]
-    }));
 
-    //verifying token using custom middleware
-    app.use(function(err, req, res, next) {
-
-        if(req.path == '/' || req.path =='/signup' || req.path == '/login' || req.path == '/queries' || req.path == '/favicon.ico'){
-            
-               
-        }
-           
-            if (err.name === 'UnauthorizedError') {
-                return res.status(403).send({
-                    success: false,
-                    message: 'No token provided.'
-                });
-            }
-        })
-        //1. we will create a route to get all queries/tickets from database to client when he is not loggedIn
-
+    /**/
+    //1. we will create a route to get all queries/tickets from database to client when he is not loggedIn
+    ''
     route.get('/queries', function(req, res) {
 
             //1.3 User can click on any doubt and look at the conversations without auth
@@ -122,14 +90,21 @@ module.exports.controllerFunction = function(app) {
                     if (err)
                         throw err;
                     else {
-                        //lets create an cookie to store this information for future use
-                        req.session.user = profile;
-                        var myToken = jwt.sign({ username: req.body.username, password: req.body.password }, '9gag forever')
-                        res.json({ "user": profile, "token": myToken });
+                        if (profile.length == 0) {
+                            res.json({ "user": 'no user found' });
+                        } else {
+                            //lets create an cookie to store this information for future use
+                            req.session.user = profile;
+                            var myToken = jwt.sign({ username: req.body.username, password: req.body.password }, '9gag forever')
+                            res.json({ "user": profile, "token": myToken });
 
-                        //remember to save this token in frontEnd and use it whenever 
-                        //interacting with server side APIs send it in authorization Headers
-                        //i.e in third parameter of post request
+                            //remember to save this token in frontEnd and use it whenever 
+                            //interacting with server side APIs send it in authorization Headers
+                            //i.e in third parameter of post request
+
+
+                        }
+
 
 
 

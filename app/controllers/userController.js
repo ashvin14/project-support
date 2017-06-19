@@ -25,11 +25,45 @@ var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var ObjectId = mongoose.Types.ObjectId;
 var Promise = require('bluebird')
+var expressJWT = require('express-jwt');
+var jwt = require('jsonwebtoken');
 var disscussion = require('./../models/discussionModel.js')
 
 
 //an export function
 module.exports.controllerFunction = function(app) {
+
+
+    //protecting the routes using JWT
+    route.use("/", expressJWT({
+        secret: '9gag forever',
+        getToken: function fromCookie(req) {
+            var token = req.cookies.access_token || req.body.access_token || req.query.access_token || req.headers['x-access-token'];
+            if (token) {
+                return token;
+            }
+            return null;
+        }
+    }));
+
+
+    //verifying token using custom middleware
+
+    route.use(function(err, req, res, next) {
+        console.log(req.path)
+        if(req.path == '/' || req.path =='/signup' || req.path == '/login' || req.path == '/queries' || req.path == '/favicon.ico'){
+           
+            next()
+               
+        }
+           
+            if (err.name === 'UnauthorizedError') {
+                return res.status(403).send({
+                    success: false,
+                    message: 'No token provided.'
+                });
+            }
+        })
     //a function to query db and return a particular query based on id
 
     var FunctionToReturnQuery = function(id) {
@@ -182,7 +216,7 @@ module.exports.controllerFunction = function(app) {
             //updating status of query
             query.findOneAndUpdate({ _id: req.body.id }, {
                 $set: {
-                    Query_status: req.body.Query_status
+                    status: req.body.status
                 }
             }, function(error, result) {
                 if (error) throw error;

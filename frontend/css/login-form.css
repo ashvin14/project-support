@@ -1,0 +1,44 @@
+.login-box {
+    padding: 0 25 0;
+    border: solid #e4e2e2;
+    border-width: 1px;
+    border-radius: 6px;
+    box-shadow: 4px 1px 5px #bfbfbf;
+}
+
+@media screen and (min-width:527px) {
+    .login-box {
+        padding: 0 25 0;
+        border: solid #e4e2e2;
+        border-width: 1px;
+        border-radius: 6px;
+        box-shadow: 4px 1px 5px #bfbfbf;
+        margin: 0 29% 0;
+    }
+}
+
+.login-box .introduction {
+    text-align: center;
+}
+
+.login-form {
+    margin-top: 21%;
+}
+
+.btn-submit {
+    background-color: #eeeeee;
+    box-shadow: 2px 1px 6px #483c3c;
+    position:relative;
+    left:29%;
+}
+.btn-signup{
+    background-color: #b1b1b1;
+    box-shadow: 2px 1px 6px #483c3c;
+    position:relative;
+    left:11%;
+
+
+}
+.correct-password{
+    border: solid #ff868d;
+}

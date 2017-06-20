@@ -1,5 +1,7 @@
 var myApp = angular.module('supportApp', ['ngRoute']);
-myApp.controller('unSignedController', function(apiservice) {
+myApp.controller('unSignedController', function(apiservice,$window) {
+    if($window.sessionStorage.token)
+        $window.location="#/loggedIn/queries"
     var main = this;
     this.queries = [];
     this.statusLogin = false;
@@ -10,7 +12,7 @@ myApp.controller('unSignedController', function(apiservice) {
                 main.statusLogin = false
             else main.statusLogin = true
                 //now pull all queries from API
-            console.log(main.statusLogin)
+            
             main.queries = response.data.queries;
 
             //to seperate comma seperated tags
@@ -19,18 +21,34 @@ myApp.controller('unSignedController', function(apiservice) {
                 main.queries[query].tags = main.queries[query].tags[0].split(',');
 
             }
-            console.log(response.data)
-
+            
 
         })
-        //api to loggout the user when he presses logout link
-    this.loggout = function() {
-        apiservice.loggout().then(function(response) {
-            window.location = "#/";
-        })
+        
+    
 
 
-    }
+})
+myApp.controller('SignedController',function(apiservice){
+    var main = this;
+    this.queries = [];
+    main.statusLogin = true;
+    apiservice.getAllQueriesWithSignin().then(function(response){
 
+        main.queries = response.data;
 
+        if (response.data.status == 'notLoggedIn')
+                main.statusLogin = false
+            else main.statusLogin = true
+                //now pull all queries from API
+
+            //to seperate comma seperated tags
+            for (var query in main.queries) {
+
+                main.queries[query].tags = main.queries[query].tags[0].split(',');
+
+            }
+           
+
+    })
 })

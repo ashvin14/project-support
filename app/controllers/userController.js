@@ -36,26 +36,14 @@ module.exports.controllerFunction = function(app) {
 
     //protecting the routes using JWT
     route.use("/", expressJWT({
-        secret: '9gag forever',
-        getToken: function fromCookie(req) {
-            var token = req.cookies.access_token || req.body.access_token || req.query.access_token || req.headers['x-access-token'];
-            if (token) {
-                return token;
-            }
-            return null;
-        }
+        secret: '9gag forever'
     }));
 
 
     //verifying token using custom middleware
 
-    route.use(function(err, req, res, next) {
-        console.log(req.path)
-        if(req.path == '/' || req.path =='/signup' || req.path == '/login' || req.path == '/queries' || req.path == '/favicon.ico'){
-           
-            next()
-               
-        }
+    /*route.use(function(err, req, res, next) {
+        
            
             if (err.name === 'UnauthorizedError') {
                 return res.status(403).send({
@@ -63,7 +51,7 @@ module.exports.controllerFunction = function(app) {
                     message: 'No token provided.'
                 });
             }
-        })
+        })*/
     //a function to query db and return a particular query based on id
 
     var FunctionToReturnQuery = function(id) {
@@ -93,7 +81,10 @@ module.exports.controllerFunction = function(app) {
                     
                     var querypost = {
                         Query: query,
-                        disscussion: disscussion
+                        disscussion: disscussion,
+                        
+                             
+                        
                     }
                     resolve(querypost);
 
@@ -265,13 +256,15 @@ module.exports.controllerFunction = function(app) {
         }) //end of post request
      route.get('/queries/:id', function(req, res) {
         FunctionToReturnQuery(req.params.id).then(FunctionToReturnDiscussionBasedOnQuery).then(function(response) {
-            res.json(response)
+            
+            res.json({Data:response,user:req.session.user[0].name})
         })
 
     })
 
     //end of get request
     route.post('/queries/discussion/post', function(req, res) {
+        console.log(req.body)
         if (req.session.user != 'admin') {
             if (req.body.discussion_message != undefined) {
                 var discussion = new disscussion({

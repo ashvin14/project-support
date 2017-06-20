@@ -12,21 +12,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
 
-<body>
-    <header class="header" role='banner' ng-controller="unSignedController as queryCtrl">
+<body ng-controller="loginController as loginCtrl">
+    <header class="header" role='banner' >
         <nav class="header-navigation container" rote="navigation">
             <ul class="header-nav-list">
                 <li class="header-nav-item header-nav-item-primary header-nav-item-glyphyicon" >
-                    <a class="  header-nav-link" href="#/"> Support</a>
+                    <a class="  header-nav-link" > Support</a>
                 </li>
                 <li class="header-nav-item  header-nav-item-primary header-nav-item-query ">
-                    <a href="" class="  header-nav-link" ng-show="queryCtrl.StatusLogin">Add Query</a>
+                    <a href="" class="  header-nav-link" ng-show="loginCtrl.verify">Add Query</a>
                 </li>
                 <li class="header-nav-item  header-nav-item-primary header-nav-item-signup ">
-                    <a href="#/signin" class="  header-nav-link" ng-hide="queryCtrl.statusLogin">Sign in</a>
+                    <a href="#/signin" class="  header-nav-link" ng-show="!loginCtrl.verify">Sign in </a>
                 </li>
                 <li class="header-nav-item  header-nav-item-primary header-nav-item-signup ">
-                    <a ng-click="queryCtrl.loggout()" class="  header-nav-link" ng-show="queryCtrl.statusLogin">Logout</a>
+
+                    <a ng-click="loginCtrl.loggout()" role="button" class="  header-nav-link" ng-show="loginCtrl.verify">Loggout</a>
+
                 </li>
             </ul>
         </nav>
@@ -34,6 +36,7 @@
     </header>
     <div class="container">
         <div class="box-header">
+
             <div ng-view>
             </div>
             <footer class="footer" role="contentinfo">
@@ -56,6 +59,8 @@
             <script src="angular/controllers/angular_app.js"></script>
             <script src="angular/controllers/routes.js"></script>
              <script src="angular/controllers/loginController.js"></script>
+             <script src="angular/controllers/signupController.js"></script>
+             <script src="angular/controllers/singleController_LoggedIn.js"></script>
             <script src="angular/services/services.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>

@@ -9,7 +9,7 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email">
+                                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" ng-model="signupCtrl.email" required>
                                 </div>
                             </div>
                         </div>
@@ -18,7 +18,7 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="password" placeholder="Enter your password">
+                                    <input type="password" class="form-control" name="email" id="password" placeholder="Enter your password" ng-model="signupCtrl.password" required>
                                 </div>
                             </div>
                         </div>
@@ -27,15 +27,15 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="name" placeholder="Enter your name">
+                                    <input type="text" class="form-control" name="email" id="name" placeholder="Enter your name" ng-model="signupCtrl.name" required>
                                 </div>
                             </div>
                         </div>
                         <ul class='text-center'>
                         <li>
                         	<div class="form-group">
-                        		<div class="btn btn-submit">
-                        			login
+                        		<div class="btn btn-submit" ng-click="signupCtrl.postSignupDetails()">
+                        			sign up
                         		</div>
                         	</div>
                         </li>

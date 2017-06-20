@@ -12,20 +12,31 @@ myApp.config(['$routeProvider', function($routeProvider){
         })
         .when('/signin',{
         	templateUrl     : 'views/login-form.html',
-        	controller 		: 'loginController',
-        	controllerAs 	: 'loginCtrl'
+            controller:'loginController'
+        	
         })
-        .when('/products',{
+        .when('/signup',{
 
-        	templateUrl     : 'views/products-view.html',
-        	controller 		: 'productController',
-        	controllerAs 	: 'productCtrl'
+        	templateUrl     : 'views/signup-form.html',
+        	controller 		: 'signupController',
+        	controllerAs 	: 'signupCtrl'
         })
-        .when('/product/:id',{
-            templateUrl :'views/singleProduct.html',
-            controller:'singleProductController',
-            controllerAs:'singleProductCtrl'
+        .when('/loggedIn/queries',{
+            templateUrl :'views/query-with-signin.html',
+            controller:'SignedController',
+            controllerAs:'queryCtrl'
             
+        })
+        .when('/query/:id',{
+            templateUrl:'views/single-query-without-signin.html',
+            
+            
+        })
+        .when('/loggedIn/query/:id',{
+            templateUrl:'views/single-query.html',
+            controller:'singleController',
+            controllerAs:'singleCtrl'
+
         })
         /*
         .when('/edit/:id',{

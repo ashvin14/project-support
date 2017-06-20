@@ -7,7 +7,7 @@
                         <div class="discussion-byline">
                             posted on {{singleCtrl.query.date | date:'medium'}}
                         </div>
-                        <div class="btn btn-primary pull-right"  ng-click ="singleCtrl.closeQuery()" ng-show="singleCtrl.query.status=='open'">Close Query</div>
+                        <div class="btn btn-primary pull-right" ng-show="singleCtrl.user && singleCtrl.query.status == 'open' " ng-click ="singleCtrl.closeQuery()">Close Query</div>
                         <h1>
                         {{singleCtrl.query.Query_title}}
                         </h1>
@@ -38,29 +38,21 @@
                                 </p>
                             </div>
                         </div>
-                        <hr>
                     </li>
-
                     
                 </ul>
-               
+                <hr>
 
-                <div class="input" ng-show="singleCtrl.query.status == 'open'" >
-                    <div class="reply" contenteditable ng-model="singleCtrl.replyByUser" >
-                        write your reply here..
-                    </div>
-                    <br>
-                    <div class="submit-reply btn  pull-right button-submit" ng-click="singleCtrl.postReplyByUser()">Submit</div>
-                </div>
+                
             </div>
-            <div class="not-signin" ng-show="singleCtrl.query.status=='closed'">
+            <div class="not-signin">
                 <div class="container">
                     <div class="glyph">
                         <span class="glyphicon glyphicon-info-sign"></span>
                     </div>
                     <div class="reason">
-                        <p>This query is closed if you have any other query </p>
-                        <p>Please <a href="" class="not-signin-link">follow the link</a> </p>
+                        <p>Users without Authentication are not allowed to post Query</p>
+                        <p>Please <a href="" class="not-signin-link">sign in</a> to make query</p>
                     </div>
                 </div>
             </div>  

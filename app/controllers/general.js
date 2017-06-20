@@ -47,7 +47,13 @@ module.exports.controllerFunction = function(app) {
 
     /**/
     //1. we will create a route to get all queries/tickets from database to client when he is not loggedIn
-    ''
+    route.get('/isLoggedIn',function(req,res){
+        if(req.session.user)
+            res.json({"notLoggedIn":"false"});
+        else{
+            res.json({"notLoggedIn":"true"})
+        }
+    })
     route.get('/queries', function(req, res) {
 
             //1.3 User can click on any doubt and look at the conversations without auth

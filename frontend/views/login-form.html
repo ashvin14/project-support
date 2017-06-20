@@ -1,4 +1,4 @@
- <div class="login-box" ng-class="{'correct-password':loginCtrl.verify}">
+ <div class="login-box" ng-class="{'correct-password':!loginCtrl.correctCredentails}">
                 <h1 class="introduction">Welcome Back to Support</h1>
                 <div class="login-form" >
                     <hr>
@@ -13,7 +13,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="cols-sm-2 control-label">Your password</label>
+                            <label for="password" class="cols-sm-2 control-label">Your password </label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
@@ -30,7 +30,7 @@
                         	</div>
                         </li>
                         <li>
-                        	<hr><p>or continue <a href="">signup</a> using 
+                        	<hr><p>or continue <a href="#/signup">signup</a> using 
                         	Email
                         	</p>
                         

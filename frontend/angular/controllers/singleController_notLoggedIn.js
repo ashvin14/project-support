@@ -1,0 +1,1 @@
+myApp.contrller('singleContro')

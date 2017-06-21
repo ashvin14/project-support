@@ -10,7 +10,7 @@ mongoose.connection.once('open', function(err) {
     if (err) throw err;
     console.log("successfully connected to database!");
 })
-var userModel = require('./../models/userModel.js')
+
 var queries = require('./../models/queriesModel.js');
 var fs = require('fs');
 
@@ -25,6 +25,14 @@ var jade = require('jade');
 var emailSender = require('./../middleware/emailsender.js')
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
+var query = require('./../models/queriesModel.js');
+var userModel = require('./../models/userModel.js')
+
+var ObjectId = mongoose.Types.ObjectId;
+var Promise = require('bluebird')
+
+var disscussion = require('./../models/discussionModel.js')
+
 
 
 
@@ -40,6 +48,63 @@ module.exports.controllerFunction = function(app) {
         saveUninitialized: true
 
     }));
+    var FunctionToReturnQuery = function(id) {
+
+        //promises are used because we want this function to interpret synchronously
+        return new Promise(function(resolve, reject) {
+            //a query to find appropriate ticket using Query ID
+            query.find({ _id: ObjectId(id) }, function(error, query) {
+                if (error) throw error;
+                else {
+
+
+                    resolve(query);
+                    //we supply it to next chain of methods
+                }
+            })
+        })
+    }
+    var FunctionToReturnDiscussionBasedOnQuery = function(query) {
+        //this function returns a discussion as well as query 
+        return new Promise(function(resolve, reject) {
+            //a query to find appropriate discussion for that query
+
+            disscussion.find({ Query_id: ObjectId(query[0]._id) }, function(error, disscussion) {
+                if (error) throw error;
+                else {
+
+                    var querypost = {
+                        Query: query,
+                        disscussion: disscussion,
+
+
+
+                    }
+                    resolve(querypost);
+
+
+
+                }
+
+
+            })
+        })
+
+    }
+
+    var FunctionToGetEmailByQuery = function(query) {
+        //it actually returns whole user instead of just Email
+
+
+       
+        return new Promise(function(resolve, reject) {
+            userModel.findOne({ _id: ObjectId(query[0].Query_uploader) }, function(error, user) {
+                if (error) throw error;
+                resolve(user)
+            })
+        })
+    }
+
 
 
 
@@ -47,11 +112,11 @@ module.exports.controllerFunction = function(app) {
 
     /**/
     //1. we will create a route to get all queries/tickets from database to client when he is not loggedIn
-    route.get('/isLoggedIn',function(req,res){
-        if(req.session.user)
-            res.json({"notLoggedIn":"false"});
-        else{
-            res.json({"notLoggedIn":"true"})
+    route.get('/isLoggedIn', function(req, res) {
+        if (req.session.user)
+            res.json({ "notLoggedIn": "false" });
+        else {
+            res.json({ "notLoggedIn": "true" })
         }
     })
     route.get('/queries', function(req, res) {
@@ -132,6 +197,12 @@ module.exports.controllerFunction = function(app) {
 
 
 
+    })
+    route.get('/queries/:id', function(req, res) {
+        FunctionToReturnQuery(req.params.id).then(FunctionToReturnDiscussionBasedOnQuery).then(function(response) {
+
+            res.json({ Data: response})
+        })
     })
 
     // a route to signup the user,here we also create an event to mail the user about his

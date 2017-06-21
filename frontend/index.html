@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" type="text/css" href="css/login-form.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
     <link rel="stylesheet" type="text/css" href="css/query-discussion.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -13,22 +14,20 @@
 </head>
 
 <body ng-controller="loginController as loginCtrl">
-    <header class="header" role='banner' >
+    <header class="header" role='banner'>
         <nav class="header-navigation container" rote="navigation">
             <ul class="header-nav-list">
-                <li class="header-nav-item header-nav-item-primary header-nav-item-glyphyicon" >
-                    <a class="  header-nav-link" > Support</a>
+                <li class="header-nav-item header-nav-item-primary header-nav-item-glyphyicon">
+                    <a class="  header-nav-link"> Support</a>
                 </li>
                 <li class="header-nav-item  header-nav-item-primary header-nav-item-query ">
-                    <a href="" class="  header-nav-link" ng-show="loginCtrl.verify">Add Query</a>
+                    <a href="#/loggedIn/upload" class="  header-nav-link" ng-show="loginCtrl.verify">Add Query</a>
                 </li>
                 <li class="header-nav-item  header-nav-item-primary header-nav-item-signup ">
                     <a href="#/signin" class="  header-nav-link" ng-show="!loginCtrl.verify">Sign in </a>
                 </li>
                 <li class="header-nav-item  header-nav-item-primary header-nav-item-signup ">
-
                     <a ng-click="loginCtrl.loggout()" role="button" class="  header-nav-link" ng-show="loginCtrl.verify">Loggout</a>
-
                 </li>
             </ul>
         </nav>
@@ -36,7 +35,8 @@
     </header>
     <div class="container">
         <div class="box-header">
-
+            
+          
             <div ng-view>
             </div>
             <footer class="footer" role="contentinfo">
@@ -56,11 +56,14 @@
             </footer>
             <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.js"></script>
+            <script src="angular-trix-master/dist/angular-trix.min.js"></script>
             <script src="angular/controllers/angular_app.js"></script>
+            <script src="angular/controllers/queryUploadController.js"></script>
             <script src="angular/controllers/routes.js"></script>
-             <script src="angular/controllers/loginController.js"></script>
-             <script src="angular/controllers/signupController.js"></script>
-             <script src="angular/controllers/singleController_LoggedIn.js"></script>
+            <script src="angular/controllers/loginController.js"></script>
+            <script src="angular/controllers/signupController.js"></script>
+            <script src="angular/controllers/singleController_LoggedIn.js"></script>
             <script src="angular/services/services.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>

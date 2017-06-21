@@ -9,7 +9,9 @@ a:hover{
 ul {
     list-style: none;
 }
-
+section {
+    margin-bottom:31px;
+}
 .header-navigation {
     height: 100%;
 }

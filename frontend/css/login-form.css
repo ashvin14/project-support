@@ -5,7 +5,13 @@
     border-radius: 6px;
     box-shadow: 4px 1px 5px #bfbfbf;
 }
-
+.query-box{
+    padding: 0 25 0;
+    border: solid #e4e2e2;
+    border-width: 1px;
+    border-radius: 6px;
+    box-shadow: 4px 1px 5px #bfbfbf;
+}
 @media screen and (min-width:527px) {
     .login-box {
         padding: 0 25 0;
@@ -23,6 +29,9 @@
 
 .login-form {
     margin-top: 21%;
+}
+.query-form{
+    margin-top:10%;
 }
 
 .btn-submit {

@@ -79,3 +79,8 @@
 		line-height: 1;
 	}
 }
+.query-submit{
+    background-color: #eeeeee;
+    box-shadow: 2px 1px 6px #483c3c;
+
+}

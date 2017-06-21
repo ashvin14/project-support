@@ -12,8 +12,10 @@
                         {{singleCtrl.query.Query_title}}
                         </h1>
                         <div class="marked-down-zone">
-                            <p>{{singleCtrl.query.Query_details}}
-                            </p>
+                        <div ng-bind-html="singleCtrl.query.html_Query_details">
+                            
+                            </div>
+                           
                             <p class="pull-right different_status" ng-class="{'status-open':singleCtrl.query.status ==='open' ,'status-closed':singleCtrl.query.status === 'closed'}">
                                 {{singleCtrl.query.status}}
                             </p>
@@ -31,12 +33,8 @@
                                     posted by <strong>{{discussion.typeofuser}}</strong> on {{discussion.date | date:'medium'}}
                                 </span>
                             </span>
-                            <div class="reply-message">
-                                <p align="{'left':discussion.typeofuser == 'admin',
-                                'right':discussion.typeofuser == 'user'}">
-                                    {{discussion.discussion_message}}
-                                </p>
-                            </div>
+                            <div class="reply-message" ng-bind-html="discussion.html_discussion_message">
+                                
                         </div>
                         <hr>
                     </li>
@@ -45,10 +43,10 @@
                 </ul>
                
 
-                <div class="input" ng-show="singleCtrl.query.status == 'open'" >
-                    <div class="reply" contenteditable ng-model="singleCtrl.replyByUser" >
+                <div class="input" ng-show="singleCtrl.query.status == 'open'  " >
+                    <trix-editor angular-trix ng-model="singleCtrl.replyByUser" >
                         write your reply here..
-                    </div>
+                    </trix-editor>
                     <br>
                     <div class="submit-reply btn  pull-right button-submit" ng-click="singleCtrl.postReplyByUser()">Submit</div>
                 </div>

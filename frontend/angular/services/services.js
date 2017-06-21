@@ -45,7 +45,7 @@ myApp.service('apiservice',function($http){
 				url:'./support/queries'
 			})
 		}
-		this.getSingleQueryWithoutSigin = function(id){
+		this.getSingleQueryWithSigin = function(id){
 			return $http({
 				method:'GET',
 				url:'./support/queries/'+id
@@ -65,6 +65,19 @@ myApp.service('apiservice',function($http){
 				method:'PUT',
 				data:data,
 				url:'./support/queries/statusChanged'
+			})
+		}
+		this.getSingleQueryWithoutSigin = function(id){
+			return $http({
+				method:'GET',
+				url:'./queries/'+id
+			})
+		}
+		this.postQuery = function(data){
+			return $http({
+				method:'POST',
+				url:'./support/queries/post',
+				data:data
 			})
 		}
 	})

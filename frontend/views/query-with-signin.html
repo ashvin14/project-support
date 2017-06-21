@@ -1,34 +1,37 @@
-          <div class="query-preview">
-                <div class="posts">
-                    <ul class="discussion-list">
-                        <li class="discussion-item" ng-repeat="query in queryCtrl.queries">
-                            <div class="discussion-avatar">
-                                <img src="img/img_avatar2.png" alt="" class="img-circle avatar">
-                            </div>
-                            
-                            <div class="discussion-meta">
-                                <h2 class="discussion-title"><a role="button" href="#/loggedIn/query/{{query._id}}">{{query.Query_title}}</a></h2>
-                                <p class="discussion-byline ">posted  on {{query.date | date:'medium'}}</p>
-                                <ul class="discussion-tags" >
-                                    <li class='discussion-tag' ng-repeat="tag in query.tags">{{tag}}</li>
-                                    
-                                </ul>
-                            <p class="status " ng-class="{'status-open':query.status ==='open' ,'status-closed':query.status === 'closed'}">{{query.status}}</p>
-                            </div>
-                        </li>
-                        
+<div class="query-preview">
+    <section>
+        <ul class="nav nav-tabs">
+            <li ng-class="{'active':queryCtrl.tab === 0}"><a ng-click="queryCtrl.tab = 0" role="button">All queries</a></li>
+            <li ng-class="{'active':queryCtrl.tab === 1}"><a ng-click="queryCtrl.tab = 1" role="button">open queries</a></li>
+            <li ng-class="{'active':queryCtrl.tab === 2}"><a ng-click="queryCtrl.tab = 2" role="button">closed queries</a></li>
+        </ul>
+    </section>
+    <div class="posts">
+        <ul class="discussion-list">
+            <li class="discussion-item" ng-repeat="query in queryCtrl.queries | statusFilter : queryCtrl.tab">
+                <div class="discussion-avatar">
+                    <img src="img/img_avatar2.png" alt="" class="img-circle avatar">
+                </div>
+                <div class="discussion-meta">
+                    <h2 class="discussion-title"><a role="button" href="#/loggedIn/query/{{query._id}}">{{query.Query_title}}</a></h2>
+                    <p class="discussion-byline ">posted on {{query.date | date:'medium'}}</p>
+                    <ul class="discussion-tags">
+                        <li class='discussion-tag' ng-repeat="tag in query.tags">{{tag}}</li>
                     </ul>
+                    <p class="status " ng-class="{'status-open':query.status ==='open' ,'status-closed':query.status === 'closed'}">{{query.status}}</p>
                 </div>
-            </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+<div class="not-signin" ng-hide="queryCtrl.statusLogin">
+    <div class="container">
+        <div class="glyph">
+            <span class="glyphicon glyphicon-info-sign"></span>
         </div>
-        <div class="not-signin" ng-hide="queryCtrl.statusLogin">
-            <div class="container">
-                <div class="glyph">
-                    <span class="glyphicon glyphicon-info-sign"></span>
-                </div>
-                <div class="reason">
-                    <p>Users without Authentication are not allowed to post Query</p>
-                    
-                    <p>Please <a href="#/signin" class="not-signin-link">sign in</a> to make query</p>
-                </div>
-            </div>
+        <div class="reason">
+            <p>Users without Authentication are not allowed to post Query</p>
+            <p>Please <a href="#/signin" class="not-signin-link">sign in</a> to make query</p>
+        </div>
+    </div>

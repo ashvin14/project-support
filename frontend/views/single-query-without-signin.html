@@ -31,14 +31,13 @@
                                     posted by <strong>{{discussion.typeofuser}}</strong> on {{discussion.date | date:'medium'}}
                                 </span>
                             </span>
-                            <div class="reply-message">
-                                <p align="{'left':discussion.typeofuser == 'admin',
-                                'right':discussion.typeofuser == 'user'}">
-                                    {{discussion.discussion_message}}
-                                </p>
-                            </div>
+                            <div class="reply-message" ng-bind-html="discussion.html_discussion_message">
                         </div>
+                        <hr>
+
                     </li>
+
+
                     
                 </ul>
                 <hr>
@@ -52,7 +51,7 @@
                     </div>
                     <div class="reason">
                         <p>Users without Authentication are not allowed to post Query</p>
-                        <p>Please <a href="" class="not-signin-link">sign in</a> to make query</p>
+                        <p>Please <a href="#/signin" class="not-signin-link">sign in</a> to make query</p>
                     </div>
                 </div>
             </div>  

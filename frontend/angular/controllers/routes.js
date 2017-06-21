@@ -29,6 +29,9 @@ myApp.config(['$routeProvider', function($routeProvider){
         })
         .when('/query/:id',{
             templateUrl:'views/single-query-without-signin.html',
+            controller :'singleWithoutsiginController',
+            controllerAs:'singleCtrl'
+
             
             
         })
@@ -36,6 +39,12 @@ myApp.config(['$routeProvider', function($routeProvider){
             templateUrl:'views/single-query.html',
             controller:'singleController',
             controllerAs:'singleCtrl'
+
+        })
+        .when('/loggedIn/upload',{
+            templateUrl:'views/query-upload.html',
+            controller:'queryUploadController',
+            controllerAs:'queryUpload'
 
         })
         /*

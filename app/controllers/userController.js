@@ -102,7 +102,7 @@ module.exports.controllerFunction = function(app) {
         //it actually returns whole user instead of just Email
 
 
-        console.log(query)
+       
         return new Promise(function(resolve, reject) {
             userModel.findOne({ _id: ObjectId(query[0].Query_uploader) }, function(error, user) {
                 if (error) throw error;
@@ -224,12 +224,12 @@ module.exports.controllerFunction = function(app) {
     route.post('/queries/post', function(req, res) {
             //saving Query details in mongo
 
-            if (req.body.Query_title != undefined && req.body.Query_details != undefined && req.body.tags != undefined && req.body.status != undefined) {
+            if (req.body.Query_title != undefined && req.body.Query_details != undefined && req.body.tags != undefined ) {
                 var ticket = new query({
                     Query_title: req.body.Query_title,
                     Query_details: req.body.Query_details,
                     tags: req.body.tags,
-                    status: req.body.status,
+                    status: "open",
                     Query_uploader: req.session.user[0]._id,
                     date: new Date()
 
@@ -257,14 +257,14 @@ module.exports.controllerFunction = function(app) {
      route.get('/queries/:id', function(req, res) {
         FunctionToReturnQuery(req.params.id).then(FunctionToReturnDiscussionBasedOnQuery).then(function(response) {
             
-            res.json({Data:response,user:req.session.user[0].name})
+            res.json({Data:response,user:req.session.user[0].name,user_id:req.session.user[0]._id})
         })
 
     })
 
     //end of get request
     route.post('/queries/discussion/post', function(req, res) {
-        console.log(req.body)
+       
         if (req.session.user != 'admin') {
             if (req.body.discussion_message != undefined) {
                 var discussion = new disscussion({
@@ -306,7 +306,7 @@ module.exports.controllerFunction = function(app) {
                 else {
 
                     FunctionToReturnQuery(discussion.Query_id).then(FunctionToGetEmailByQuery).then(function(user) {
-                        console.log(user.email)
+                        
                         eventEmitter.on('discussion_post', function() {
                             emailSender.FunctionToSendEmail(user.email, 'discussion_user_email.jade', 'you recieved an reply', discussion._id)
                         })

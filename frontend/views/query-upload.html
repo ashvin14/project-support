@@ -1,0 +1,26 @@
+<div class="query-box">
+    <h1 class="text-center">Tell us Your Query</h1>
+    <div class="query-form">
+        <hr>
+        <div class="form-group">
+            <div class=" btn  pull-right query-submit" ng-click="queryUpload.postQuery()">submit</div>
+        </div>
+        <div class="form-group">
+            <label for="Query-title">your title</label>
+            <div class="input-group">
+                <input type="text" id="Query-title" ng-model="queryUpload.query_title">
+            </div>
+        </div>
+        <label for="query-details">Query detailed description</label>
+        <div class="input">
+            <trix-editor angular-trix ng-model="queryUpload.query_details" >
+            </trix-editor>
+        </div>
+        <div class="form-group">
+            <label for="tags">put comma seperated tags</label>
+            <div class="input-group" >
+                <input type="text" id="tags" ng-model="queryUpload.tags" >
+                
+            </div>
+        </div>
+    </div>

@@ -18,6 +18,7 @@ Implementation:
   5.b)user model to store users
   5.c)query model to store queries or tickets
 6)special libraries like nodemailer and express jwt are used for mailing and  security exchange of APIs
+7) although i have taken an approach where admin is only one so simple checking of admin is done by using if condition but,if there are many admins a seperate db can be maintained for them and checked every time if the user is admin or not by writing some function to check which can be a promise
 
 
 usage:
@@ -35,3 +36,9 @@ usage:
 
 admin email : yashkhrnr2@gmail.com
 admin password: 254347122
+
+
+
+student_name:Ashvin khairnar
+email_id	: yashkhrnr@gmail.com
+mobile_no	: 9082062462

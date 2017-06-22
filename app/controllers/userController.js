@@ -181,6 +181,7 @@ module.exports.controllerFunction = function(app) {
     //a route to edit the query
     //again make sure that it is inaccessible to admin
     //this can be done by hiding the button in frontEnd
+    //although this route is not used still in future use we may use it
     route.put('/queries/edit', function(req, res) {
             //saving latest changes in mongo
             query.findOneAndUpdate({ _id: req.body.id }, {
@@ -264,7 +265,10 @@ module.exports.controllerFunction = function(app) {
 
     //end of get request
     route.post('/queries/discussion/post', function(req, res) {
-       
+       //checking if the user is not admin
+            // and then saving discussion 
+            //keeping type of user as regular user
+
         if (req.session.user != 'admin') {
             if (req.body.discussion_message != undefined) {
                 var discussion = new disscussion({
@@ -279,9 +283,10 @@ module.exports.controllerFunction = function(app) {
 
             discussion.save(function(error, discussion) {
                 if (error) throw error;
+                //emailing admin about he has got reply
                 else {
                     eventEmitter.on('discussion_post', function() {
-                        emailSender.FunctionToSendEmail('yashkhrnr2@gmail.com', 'discussion_admin_email.jade', 'you have recieved an query', discussion._id)
+                        emailSender.FunctionToSendEmail('yashkhrnr2@gmail.com', 'discussion_admin_email.jade', 'you have recieved an message ', discussion._id)
                     })
                     eventEmitter.emit('discussion_post')
                     res.json(discussion)
@@ -291,6 +296,8 @@ module.exports.controllerFunction = function(app) {
 
 
         } else {
+            //if user is admin who is viewing particular post
+                //save as 'admn' typeofuser
 
 
             var discussion = new disscussion({
@@ -304,7 +311,7 @@ module.exports.controllerFunction = function(app) {
             discussion.save(function(error, discussion) {
                 if (error) throw error;
                 else {
-
+                    //mail the user accordingly that admin has replied on your query
                     FunctionToReturnQuery(discussion.Query_id).then(FunctionToGetEmailByQuery).then(function(user) {
                         
                         eventEmitter.on('discussion_post', function() {

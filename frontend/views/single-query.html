@@ -1,64 +1,57 @@
 <div class="forum-post-content">
-                <div class="forum-post-question ">
-                    <div class="discussion-question">
-                        <div class="character">
-                            <img src="img/img_avatar2.png" alt="" class="img-circle character-image">
-                        </div>
-                        <div class="discussion-byline">
-                            posted on {{singleCtrl.query.date | date:'medium'}}
-                        </div>
-                        <div class="btn btn-primary pull-right"  ng-click ="singleCtrl.closeQuery()" ng-show="singleCtrl.query.status=='open'">Close Query</div>
-                        <h1>
+    <div class="forum-post-question ">
+        <div class="discussion-question">
+            <div class="character">
+                <img src="img/img_avatar2.png" alt="" class="img-circle character-image">
+            </div>
+            <div class="discussion-byline">
+                posted on {{singleCtrl.query.date | date:'medium'}}
+            </div>
+            <div class="btn btn-primary pull-right" ng-click="singleCtrl.closeQuery()" ng-show="singleCtrl.query.status=='open'">Close Query</div>
+            <h1>
                         {{singleCtrl.query.Query_title}}
                         </h1>
-                        <div class="marked-down-zone">
-                        <div ng-bind-html="singleCtrl.query.html_Query_details">
-                            
-                            </div>
-                           
-                            <p class="pull-right different_status" ng-class="{'status-open':singleCtrl.query.status ==='open' ,'status-closed':singleCtrl.query.status === 'closed'}">
-                                {{singleCtrl.query.status}}
-                            </p>
-                        </div>
-                    </div>
+            <div class="marked-down-zone">
+                <div ng-bind-html="singleCtrl.query.html_Query_details">
                 </div>
+                <p class="pull-right different_status" ng-class="{'status-open':singleCtrl.query.status ==='open' ,'status-closed':singleCtrl.query.status === 'closed'}">
+                    {{singleCtrl.query.status}}
+                </p>
             </div>
-            <hr>
-            <div class="forum-post-content reply-discussion">
-                <ul class="replies">
-                    <li ng-repeat="discussion in singleCtrl.discussion">
-                        <div ng-class="{'reply-admin':discussion.typeofuser == 'admin','reply-user':discussion.typeofuser == 'user'}">
-                            <span ng-class="{'pull-left':discussion.typeofuser == 'admin','pull-right':discussion.typeofuser == 'user'}">
-                                <span class="discussion-byline">
+        </div>
+    </div>
+</div>
+<hr>
+<div class="forum-post-content reply-discussion">
+    <ul class="replies">
+        <li ng-repeat="discussion in singleCtrl.discussion">
+            <div ng-class="{'reply-admin':discussion.typeofuser == 'admin','reply-user':discussion.typeofuser == 'user'}">
+                <span >
+                                <span class="discussion-byline" ng-class="{'pull-left':discussion.typeofuser == 'admin','pull-right':discussion.typeofuser == 'user'}">
                                     posted by <strong>{{discussion.typeofuser}}</strong> on {{discussion.date | date:'medium'}}
                                 </span>
-                            </span>
-                            <div class="reply-message" ng-bind-html="discussion.html_discussion_message">
-                                
-                        </div>
-                        <hr>
-                    </li>
-
-                    
-                </ul>
-               
-
-                <div class="input" ng-show="singleCtrl.query.status == 'open'  " >
-                    <trix-editor angular-trix ng-model="singleCtrl.replyByUser" >
-                        write your reply here..
-                    </trix-editor>
-                    <br>
-                    <div class="submit-reply btn  pull-right button-submit" ng-click="singleCtrl.postReplyByUser()">Submit</div>
+                </span>
+                <div ng-class="{'reply-message-admin':discussion.typeofuser == 'admin','reply-message-user':discussion.typeofuser == 'user'}" ng-bind-html="discussion.html_discussion_message" >
                 </div>
+                <hr>
+        </li>
+    </ul>
+    <div class="input" ng-show="singleCtrl.query.status == 'open'  ">
+        <trix-editor angular-trix ng-model="singleCtrl.replyByUser">
+            write your reply here..
+        </trix-editor>
+        <br>
+        <div class="submit-reply btn  pull-right button-submit" ng-click="singleCtrl.postReplyByUser()">Submit</div>
+    </div>
+    </div>
+    <div class="not-signin" ng-show="singleCtrl.query.status=='closed'">
+        <div class="container">
+            <div class="glyph">
+                <span class="glyphicon glyphicon-info-sign"></span>
             </div>
-            <div class="not-signin" ng-show="singleCtrl.query.status=='closed'">
-                <div class="container">
-                    <div class="glyph">
-                        <span class="glyphicon glyphicon-info-sign"></span>
-                    </div>
-                    <div class="reason">
-                        <p>This query is closed if you have any other query </p>
-                        <p>Please <a href="" class="not-signin-link">follow the link</a> </p>
-                    </div>
-                </div>
-            </div>  
+            <div class="reason">
+                <p>This query is closed if you have any other query </p>
+                <p>Please <a href="#/loggedIn/upload" class="not-signin-link">follow the link</a> </p>
+            </div>
+        </div>
+    </div>

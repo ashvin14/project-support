@@ -1,4 +1,4 @@
-//var app = angular.module('ecommApp', ['ngRoute']); 
+
 
 myApp.config(['$routeProvider', function($routeProvider){
     $routeProvider
@@ -47,6 +47,7 @@ myApp.config(['$routeProvider', function($routeProvider){
             controllerAs:'queryUpload'
 
         })
+        
         /*
         .when('/edit/:id',{
 

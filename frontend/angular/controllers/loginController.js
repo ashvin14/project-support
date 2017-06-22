@@ -9,6 +9,7 @@ myApp.controller('loginController', function(apiservice, $window, $interval) {
         $window.location="#/loggedIn/queries"
 
     this.correctCredentails = true;
+    //function to check email authenication with api using post service
     this.postLoginDetails = function() {
         //ld stands for loginDetails
         if (main.email == "" || main.password == "") {
@@ -51,6 +52,14 @@ myApp.controller('loginController', function(apiservice, $window, $interval) {
 
     }
 
+    //little bit of trick here
+    //inorder to change contents of header where the other controller is used 
+    //whose scope is different than our main(view controller) controller
+    //we do here is checking with every 200ms to detect for a change in login status 
+    //if the user is loggedIn the header contents are changed
+    //else they are not this is done by $interval module inbuilt with Angualrjs
+
+
     $interval(function() {
         if ($window.sessionStorage.token) {
 
@@ -72,7 +81,8 @@ myApp.controller('loginController', function(apiservice, $window, $interval) {
 
 
 })
-
+//a factory or service may be used to supply authorization headers to backEnd as
+// soon  as login is done
 myApp.factory('authInterceptor', function($rootScope, $q, $window) {
     return {
         request: function(config) {

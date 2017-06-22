@@ -1,57 +1,51 @@
 <div class="forum-post-content">
-                <div class="forum-post-question ">
-                    <div class="discussion-question">
-                        <div class="character">
-                            <img src="img/img_avatar2.png" alt="" class="img-circle character-image">
-                        </div>
-                        <div class="discussion-byline">
-                            posted on {{singleCtrl.query.date | date:'medium'}}
-                        </div>
-                        <div class="btn btn-primary pull-right" ng-show="singleCtrl.user && singleCtrl.query.status == 'open' " ng-click ="singleCtrl.closeQuery()">Close Query</div>
-                        <h1>
+    <div class="forum-post-question ">
+        <div class="discussion-question">
+            <div class="character">
+                <img src="img/img_avatar2.png" alt="" class="img-circle character-image">
+            </div>
+            <div class="discussion-byline">
+                posted on {{singleCtrl.query.date | date:'medium'}}
+            </div>
+            <div class="btn btn-primary pull-right" ng-show="singleCtrl.user && singleCtrl.query.status == 'open' " ng-click="singleCtrl.closeQuery()">Close Query</div>
+            <h1>
                         {{singleCtrl.query.Query_title}}
                         </h1>
-                        <div class="marked-down-zone">
-                            <p>{{singleCtrl.query.Query_details}}
-                            </p>
-                            <p class="pull-right different_status" ng-class="{'status-open':singleCtrl.query.status ==='open' ,'status-closed':singleCtrl.query.status === 'closed'}">
-                                {{singleCtrl.query.status}}
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="marked-down-zone">
+                <p>{{singleCtrl.query.Query_details}}
+                </p>
+                <p class="pull-right different_status" ng-class="{'status-open':singleCtrl.query.status ==='open' ,'status-closed':singleCtrl.query.status === 'closed'}">
+                    {{singleCtrl.query.status}}
+                </p>
             </div>
-            <hr>
-            <div class="forum-post-content reply-discussion">
-                <ul class="replies">
-                    <li ng-repeat="discussion in singleCtrl.discussion">
-                        <div ng-class="{'reply-admin':discussion.typeofuser == 'admin','reply-user':discussion.typeofuser == 'user'}">
-                            <span ng-class="{'pull-left':discussion.typeofuser == 'admin','pull-right':discussion.typeofuser == 'user'}">
-                                <span class="discussion-byline">
+        </div>
+    </div>
+</div>
+<hr>
+<div class="forum-post-content reply-discussion">
+    <ul class="replies">
+        <li ng-repeat="discussion in singleCtrl.discussion">
+            <div ng-class="{'reply-admin':discussion.typeofuser == 'admin','reply-user':discussion.typeofuser == 'user'}">
+                <span>
+                                <span class="discussion-byline" ng-class="{'pull-left':discussion.typeofuser == 'admin','pull-right':discussion.typeofuser == 'user'}">
                                     posted by <strong>{{discussion.typeofuser}}</strong> on {{discussion.date | date:'medium'}}
                                 </span>
-                            </span>
-                            <div class="reply-message" ng-bind-html="discussion.html_discussion_message">
-                        </div>
-                        <hr>
-
-                    </li>
-
-
-                    
-                </ul>
-                <hr>
-
-                
-            </div>
-            <div class="not-signin">
-                <div class="container">
-                    <div class="glyph">
-                        <span class="glyphicon glyphicon-info-sign"></span>
-                    </div>
-                    <div class="reason">
-                        <p>Users without Authentication are not allowed to post Query</p>
-                        <p>Please <a href="#/signin" class="not-signin-link">sign in</a> to make query</p>
-                    </div>
+                </span>
+                <div ng-class="{'reply-message-admin':discussion.typeofuser == 'admin','reply-message-user':discussion.typeofuser == 'user'}" ng-bind-html="discussion.html_discussion_message">
                 </div>
-            </div>  
+                <hr>
+        </li>
+    </ul>
+    <hr>
+    </div>
+    <div class="not-signin">
+        <div class="container">
+            <div class="glyph">
+                <span class="glyphicon glyphicon-info-sign"></span>
+            </div>
+            <div class="reason">
+                <p>Users without Authentication are not allowed to post Query</p>
+                <p>Please <a href="#/signin" class="not-signin-link">sign in</a> to make query</p>
+            </div>
+        </div>
+    </div>

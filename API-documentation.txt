@@ -1,0 +1,522 @@
+1)AN API TO GET ALL QUERIES
+
+	This api is used to get all queries without authentication or JWT sign
+
+	URL
+
+	http://localhost:8000/queries
+
+	Method:
+
+	<The request type>
+
+	GET 
+
+	URL Params
+
+	no url params needed
+
+	Required:
+
+	none
+
+	Optional:
+
+	null
+
+	Data Params
+
+	null
+
+	Success Response:
+
+	
+
+	Code: 200 
+	Content: {"status":"notLoggedIn","data":API_FETECHED_DATA}
+
+	Error Response:
+
+	null
+
+	Code: null
+	Content: null
+	
+	curl http://localhost:8000/queries
+
+	Notes:
+
+	21/06/2017 7:38 PM
+		-no check on who is calling this api
+		- anyone can access this api 
+
+
+2)AN API TO LOGOUT USER
+
+	This api is used to loggout User
+
+	URL
+
+	http://localhost:8000/loggout
+
+	Method:
+
+	<The request type>
+
+	GET 
+
+	URL Params
+
+	no url params needed
+
+	Required:
+
+	session.user
+
+	Optional:
+
+	null
+
+	Data Params
+
+	null
+
+	Success Response:
+
+	
+
+	Code: 200 
+	Content: {"loggedOut":true}
+
+	Error Response:
+
+	null
+
+	Code: null
+	Content: null
+	
+	curl http://localhost:8000/loggout
+
+	Notes:
+
+	21/06/2017 7:38 PM
+		-no check on who is calling this api
+		- anyone can access this api 
+
+3)AN API TO LOGIN THE USER
+
+	This api is used to post login request and make JWT signature
+
+	URL
+
+	http://localhost:8000/login
+
+	Method:
+
+	<The request type>
+
+	POST 
+
+	URL Params
+
+	no url params needed
+
+	Required:
+
+	none
+
+	Optional:
+
+	null
+
+	Data Params
+
+	1) EmailId 
+	2) password
+
+	Success Response:
+
+	
+
+	Code: 200 
+	Content: {"user":USER_PROFILE,"token":JWT_GENERATED_TOKEN}
+
+	Error Response:
+
+	null
+
+	Code: 200
+	Content: {"user":"no user found"}
+	
+	
+
+	Notes:
+
+	21/06/2017 7:38 PM
+		-It generates an JWT signature which will allow him to access /support api
+		- this api determines if the user is admin or regular user
+
+4)AN API TO GET INFORMATION ABOUT PARTICULAR QUERY WITH DISCUSSION WITHOUT AUTHENTICATION
+
+	This api is used to get single query and discussion without authentication or JWT sign
+
+	URL
+
+	http://localhost:8000/query/:id
+
+	Method:
+
+	<The request type>
+
+	GET 
+
+	URL Params
+
+	1) qeury_id 
+	Required:
+
+	1) qeury_id 
+
+	Optional:
+
+	null
+
+	Data Params
+
+	null
+
+	Success Response:
+
+	
+
+	Code: 200 
+	Content: {Data:API_FETCHED_SINGLE_QUERY_WITH_DISCUSSION}
+	Error Response:
+
+	null
+
+	Code: null
+	Content: null
+	
+	curl http://localhost:8000/query/:id
+
+	Notes:
+
+	null
+
+5)AN API TO SIGNUP USER
+
+	This api is used to get all queries without authentication or JWT sign
+
+	URL
+
+	http://localhost:8000/signup
+
+	Method:
+
+	<The request type>
+
+	POST 
+
+	URL Params
+
+	no url params needed
+
+	Required:
+
+	none
+
+	Optional:
+
+	null
+
+	Data Params
+
+	1) user_name
+	2) password
+	3) emailId
+
+	Success Response:
+
+	
+
+	Code: 200 
+	Content: {"data":[user_profile]]}
+
+	Error Response:
+
+	null
+
+	Code: null
+	Content: null
+	
+	
+6)AN API TO GET USER SPECIFIC QUERIES
+
+	This api is used to get user specific queries with authentication and JWT sign
+
+	URL
+
+	http://localhost:8000/support/queries
+
+	Method:
+
+	<The request type>
+
+	GET 
+
+	URL Params
+
+	no url params needed
+
+	Required:
+
+	1) Authorization headers
+	in format:- "Bearer token_id"
+	
+
+	Optional:
+
+	null
+
+	Data Params
+
+	null
+
+	Success Response:
+
+	
+
+	Code: 200 
+	Content: {"data":API_FETECHED_DATA}
+
+	Error Response:
+
+	null
+
+	Code: null
+	Content: null
+	
+	curl http://localhost:8000/support/queries
+
+	Notes:
+
+	21/06/2017 7:38 PM
+		-jwt sign checks on who is calling this api
+		- only user with authentication can access this api 
+
+
+7)AN API TO CHANGE STATUS OF QUERY
+	
+	this api is used to change status of query
+
+	URL
+
+	http://localhost:8000/support/queries/statusChanged
+
+	Method:
+
+	<The request type>
+
+	PUT 
+
+	URL Params
+
+	no url params needed
+
+	Required:
+
+	1) Authorization headers
+	in format:- "Bearer token_id"
+	
+
+	Optional:
+
+	null
+
+	Data Params
+
+	1)Query_id
+	2)Query_status
+
+	Success Response:
+
+	
+
+	Code: 200 
+	Content: {["data":API_FETECHED_DATA]}
+
+	Error Response:
+
+	null
+
+	Code: null
+	Content: null
+	
+	curl http://localhost:8000/support/queries/statusChanged
+	Notes:
+
+	null
+8) AN API TO POST  QUERY
+	
+	this api is used to post query by user only
+
+	URL
+
+	http://localhost:8000/support/queries/post
+
+	Method:
+
+	<The request type>
+
+	POST 
+
+	URL Params
+
+	no url params needed
+
+	Required:
+
+	1) Authorization headers
+	in format:- "Bearer token_id"
+	
+
+	Optional:
+
+	null
+
+	Data Params
+
+	1)Query_title
+	2)query detatils
+	3)query tags /category
+
+	Success Response:
+
+	
+
+	Code: 200 
+	Content: {["data":API_FETECHED_DATA]}
+
+	Error Response:
+
+	null
+
+	Code: null
+	Content: null
+	
+	curl http://localhost:8000/support/queries/statusChanged
+	Notes:
+
+	null
+
+9)AN API TO GET SINGLE QUERY WITH AUTHENTICATION
+	
+	this api is used to get information with discussion of single query
+
+	URL
+
+	http://localhost:8000/support/queries/:id
+
+	Method:
+
+	<The request type>
+
+	GET 
+
+	URL Params
+
+	1)query id
+
+	Required:
+
+	1) Authorization headers
+	in format:- "Bearer token_id"
+	
+
+	Optional:
+
+	null
+
+	Data Params
+
+	null
+	Success Response:
+
+	
+
+	Code: 200 
+	Content: {Data:API_FETECHED_DATA,user:SESSION_USER_WHO_IS_LOGGED_IN,user_id:USER_ID}
+
+	Error Response:
+
+	null
+
+	Code: null
+	Content: null
+	
+	
+	Notes:
+
+	null
+
+
+10)AN API TO POST DISCUSSION
+	
+	this api is used to post  on single query
+
+	URL
+
+	http://localhost:8000/support/queries/discussion/post
+
+	Method:
+
+	<The request type>
+
+	POST 
+
+	URL Params
+
+	null
+
+	Required:
+
+	1) Authorization headers
+	in format:- "Bearer token_id"
+	
+
+	Optional:
+
+	null
+
+	Data Params
+	1)discussion_message
+	2)query_id
+
+	null
+	Success Response:
+
+	
+
+	Code: 200 
+	Content: {Data:API_FETECHED_DATA,user:SESSION_USER_WHO_IS_LOGGED_IN,user_id:USER_ID}
+
+	Error Response:
+
+	null
+
+	Code: null
+	Content: null
+	
+	
+	Notes:
+
+	null
+
+
+
+
+
+
+
+

@@ -7,7 +7,7 @@ var FunctionToChooseEmailFromTemplates = function(file) {
 	console.log('../mail-templates/' + file)
 
     return  __dirname+'/mail-templates/' + file;
-    //app/controllers/mail-templates
+    
 
 }
 exports.FunctionToSendEmail = function(email, File, sub,name) {

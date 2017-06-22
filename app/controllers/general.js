@@ -16,11 +16,14 @@ var fs = require('fs');
 
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
-//an module to email user for successful signup
 //an external module to mail the user for his successful signup
 
 //jade template to render email 
 var jade = require('jade');
+
+
+
+//an module to email user for successful signup
 
 var emailSender = require('./../middleware/emailsender.js')
 var expressJWT = require('express-jwt');
@@ -29,6 +32,7 @@ var query = require('./../models/queriesModel.js');
 var userModel = require('./../models/userModel.js')
 
 var ObjectId = mongoose.Types.ObjectId;
+//promise library
 var Promise = require('bluebird')
 
 var disscussion = require('./../models/discussionModel.js')
@@ -39,6 +43,7 @@ var disscussion = require('./../models/discussionModel.js')
 
 
 //an export function
+//the apis in this route are unprotected
 module.exports.controllerFunction = function(app) {
     //lets intialize sessions with cookie parser and express-session
     app.use(require('cookie-parser')());
@@ -48,6 +53,8 @@ module.exports.controllerFunction = function(app) {
         saveUninitialized: true
 
     }));
+
+    //function which returns query  
     var FunctionToReturnQuery = function(id) {
 
         //promises are used because we want this function to interpret synchronously
@@ -155,7 +162,9 @@ module.exports.controllerFunction = function(app) {
     //a route to login the user
     route.post('/login', function(req, res) {
         //check if the user exist or not
+        //and frontend is supplying with proper parameters or not
         if (req.body.email != undefined && req.body.password != undefined) {
+            //if the user is not admin
             if (req.body.email != 'yashkhrnr2@gmail.com' && req.body.password != 'pass123') {
                 userModel.find({ $and: [{ email: req.body.email }, { password: req.body.password }] }, function(err, profile) {
                     if (err)
@@ -166,6 +175,7 @@ module.exports.controllerFunction = function(app) {
                         } else {
                             //lets create an cookie to store this information for future use
                             req.session.user = profile;
+                            //delete req.session.user[0].password;
                             var myToken = jwt.sign({ username: req.body.username, password: req.body.password }, '9gag forever')
                             res.json({ "user": profile, "token": myToken });
 
@@ -182,6 +192,7 @@ module.exports.controllerFunction = function(app) {
                     }
 
                 })
+                //if the user is admin
             } else {
                 var myToken = jwt.sign({ username: req.body.email }, '9gag forever')
 
@@ -198,6 +209,8 @@ module.exports.controllerFunction = function(app) {
 
 
     })
+    //a route to send api for particular query without authentication
+    //only id is supplied and rest is done by custom functions which are dectlared on top
     route.get('/queries/:id', function(req, res) {
         FunctionToReturnQuery(req.params.id).then(FunctionToReturnDiscussionBasedOnQuery).then(function(response) {
 
@@ -207,7 +220,7 @@ module.exports.controllerFunction = function(app) {
 
     // a route to signup the user,here we also create an event to mail the user about his
     //successful signup
-    //for that we will use nodemailer and event
+    //for that we will use nodemailer and events
     route.post('/signup', function(req, res) {
         //check if req.body.name ,password and email is blank or not
         if (req.body.email != undefined && req.body.name != undefined && req.body.password != undefined) {

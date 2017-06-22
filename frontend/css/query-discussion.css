@@ -20,7 +20,9 @@
     margin: 0;
     line-height: 1.4;
 }
-
+html{
+    font-size:16px;
+}
 .discussion-question h1 {
     font-weight: 600;
     font-size: 26px;
@@ -37,50 +39,82 @@
 
 .forum-post-content {
     padding: 30px;
-
 }
-.different_status{
-	
+
+.different_status {
     border: solid 1px;
     padding: 3px;
     border-radius: 7px;
     font-size: large;
 }
- .reply-message{
-	padding: 36px 0 0 0;
-	line-height:2;
-	
+
+.reply-message-user {
+    padding: 36px 0 0 0;
+    line-height: 2;
+    border-radius: 4px;
+    padding: 19px;
+    background-color: #c6c6ff;
 }
-.replies li div{
-	margin-bottom:41px;
+.reply-message-admin {
+    padding: 36px 0 0 0;
+    line-height: 2;
+    border-radius: 4px;
+    padding: 19px;
+    background-color: #c7eafc;
 }
-.reply-admin{
-	padding-right:60%;
+
+.replies li div {
+    margin-bottom: 41px;
 }
-.reply-user{
-	padding-left:60%;
+
+.reply-admin {
+    margin-right: 13%;
 }
-.input .reply{
-	    min-height: 27%;
+
+.reply-user {
+    margin-left: 13%;
+}
+
+.input .reply {
+    min-height: 27%;
     border-radius: 7px;
     border: solid #b1b1b1;
 }
-.button-submit{
-	background-color: #eeeeee;
-    box-shadow: 2px 1px 6px #483c3c;
-    position:relative;
-   
-}
-@media screen and(max-width:500px){
-	.reply-message{
-		line-height: 1;
-	}
-	.discussion-question h1{
-		line-height: 1;
-	}
-}
-.query-submit{
+
+.button-submit {
     background-color: #eeeeee;
     box-shadow: 2px 1px 6px #483c3c;
+    position: relative;
+}
 
+
+
+@media screen and(max-width:500px) {
+    .reply-message-user,.reply-message-admin {
+        line-height: 1;
+    }
+    .discussion-question h1 {
+        line-height: 1;
+    }
+}
+
+.query-submit {
+    background-color: #eeeeee;
+    box-shadow: 2px 1px 6px #483c3c;
+}
+.pull-right{
+    margin-bottom: 9px !important;
+}
+
+@media screen and (max-width:450px) {
+    .reply-message-user {
+        border-radius: 4px;
+        background-color: #c6c6ff;
+        font-size: 14px;
+        padding: 1;
+        word-wrap: break-word;
+    }
+    .discussion-byline{
+        font-size:10px;
+    }
 }

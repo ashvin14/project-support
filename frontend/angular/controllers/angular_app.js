@@ -1,4 +1,15 @@
+
 var myApp = angular.module('supportApp', ['ngRoute','angularTrix']);
+/*
+*two controllers in same file because they share same functionality
+
+
+
+
+
+*/
+
+
 myApp.controller('unSignedController', function(apiservice, $window) {
     if ($window.sessionStorage.token)
         $window.location = "#/loggedIn/queries"
@@ -31,11 +42,14 @@ myApp.controller('unSignedController', function(apiservice, $window) {
 
 
 })
-myApp.controller('SignedController', function(apiservice) {
+myApp.controller('SignedController', function(apiservice,$window) {
     var main = this;
     this.queries = [];
     this.tab = 0;
     main.statusLogin = true;
+    if($window.sessionStorage.token == undefined){
+        window.location ="#/"
+    }
     apiservice.getAllQueriesWithSignin().then(function(response) {
 
         main.queries = response.data;

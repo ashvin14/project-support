@@ -2,16 +2,19 @@
     background: #3e474f;
     z-index: 100;
 }
-a:hover{
-	text-decoration:none !important;
+
+a:hover {
+    text-decoration: none !important;
 }
 
 ul {
     list-style: none;
 }
+
 section {
-    margin-bottom:31px;
+    margin-bottom: 31px;
 }
+
 .header-navigation {
     height: 100%;
 }
@@ -20,7 +23,8 @@ section {
     line-height: 40px;
 }
 
-.header-nav-link:hover,.header-nav-link:focus {
+.header-nav-link:hover,
+.header-nav-link:focus {
     text-decoration: none;
     color: white;
 }
@@ -93,6 +97,25 @@ section {
         padding-left: 15px;
         padding-right: 15px;
     }
+    .discussion-title {
+        font-weight: 500;
+        font-size: 14px !important;
+        padding: 4px 0;
+        line-height: 1.4;
+        text-decoration: none;
+        color: black;
+    }
+    .status {
+        position: absolute;
+        right: 0;
+        bottom: 22px;
+        font-size: 13px !important ;
+        color: white;
+        padding: 3px;
+        border-width: 1px;
+        border: solid;
+        border-radius: 7px;
+    }
     .header-nav-list {
         padding-top: 85px;
     }
@@ -115,6 +138,12 @@ section {
         bottom: 35px;
         font-size: 13px;
     }
+    .discussion-byline {
+    font-size: 10px;
+    color: #7b8b8e;
+    margin: 0;
+    line-height: 1.4;
+}
 }
 
 .header-nav-item-signup {
@@ -241,45 +270,41 @@ h2 {
 .status-closed {
     color: #55ff00;
 }
-.footer hr{
-	border-top: 1px solid #cecece;
+.footer hr {
+    border-top: 1px solid #cecece;
 }
-.description-footer h2{
-	font-weight:600;
+.description-footer h2 {
+    font-weight: 600;
 }
-.description-footer .lead{
-	font-size:12px;
+.description-footer .lead {
+    font-size: 12px;
 }
-.not-signin{
-	background-color:#dfe2de;
-	box-shadow:3px 3px 5px #888888;
-	padding:8px 0px 0px;
+.not-signin {
+    background-color: #dfe2de;
+    box-shadow: 3px 3px 5px #888888;
+    padding: 8px 0px 0px;
 }
 .not-signin p {
     font-size: 13px;
     margin: 0;
     color: #7b8b8e;
 }
-.not-signin div{
-	display:inline-block;
-	
-
+.not-signin div {
+    display: inline-block;
 }
-.not-signin .glyph{
-	position:relative;
-	margin-right:12px;
-	    top: -15px;
+.not-signin .glyph {
+    position: relative;
+    margin-right: 12px;
+    top: -15px;
 }
-@media screen and (max-width:480px){
-    .glyph{
-        top:-6px  !important;
+@media screen and (max-width:480px) {
+    .glyph {
+        top: -6px !important;
     }
 }
-.not-signin .container{
-	   padding:0 30px 0 30px;
+.not-signin .container {
+    padding: 0 30px 0 30px;
 }
-.not-signin-link{
-	color:#231d1d;
+.not-signin-link {
+    color: #231d1d;
 }
-
-

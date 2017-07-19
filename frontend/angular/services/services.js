@@ -2,14 +2,14 @@ myApp.service('apiservice',function($http){
 		this.getAllQueriesWithoutSignin = function(){
 			return $http({
 				method:'GET',
-				url:'./queries'
+				url:'http://localhost:8000/queries'
 			})
 
 		}
 		this.loggout= function(){
 			return $http({
 				method:'GET',
-				url:'./loggout'
+				url:'http://localhost:8000/loggout'
 			})
 
 		}
@@ -17,38 +17,38 @@ myApp.service('apiservice',function($http){
 			return $http({
 				method:'POST',
 				data : user,
-				url :'./login'
+				url :'http://localhost:8000/login'
 			})
 		}
 		this.postSignupDetails = function(user){
 			return $http({
 				method:'POST',
 				data:user,
-				url:'./signup'
+				url:'http://localhost:8000/signup'
 			})
 		}
 		this.getAuthenticatedQueries = function(){
 			return $http({
 				method:"GET",
-				url:'./support/queries'
+				url:'http://localhost:8000/support/queries'
 			})
 		}
 		this.isUserLoggedIn = function(){
 			return $http({
 				method:'GET',
-				url:'./isLoggedIn'
+				url:'http://localhost:8000/isLoggedIn'
 			})
 		}
 		this.getAllQueriesWithSignin = function(){
 			return $http({
 				method:"GET",
-				url:'./support/queries'
+				url:'http://localhost:8000/support/queries'
 			})
 		}
 		this.getSingleQueryWithSigin = function(id){
 			return $http({
 				method:'GET',
-				url:'./support/queries/'+id
+				url:'http://localhost:8000/support/queries/'+id
 
 			})
 		}
@@ -57,26 +57,26 @@ myApp.service('apiservice',function($http){
 				method:'POST',
 
 				data:data,
-				url:'./support/queries/discussion/post'
+				url:'http://localhost:8000/support/queries/discussion/post'
 			})
 		}
 		this.putStatusChange = function(data){
 			return $http({
 				method:'PUT',
 				data:data,
-				url:'./support/queries/statusChanged'
+				url:'http://localhost:8000/support/queries/statusChanged'
 			})
 		}
 		this.getSingleQueryWithoutSigin = function(id){
 			return $http({
 				method:'GET',
-				url:'./queries/'+id
+				url:'http://localhost:8000/queries/'+id
 			})
 		}
 		this.postQuery = function(data){
 			return $http({
 				method:'POST',
-				url:'./support/queries/post',
+				url:'http://localhost:8000/support/queries/post',
 				data:data
 			})
 		}

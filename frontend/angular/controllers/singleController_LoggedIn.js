@@ -16,7 +16,7 @@ myApp.controller('singleWithoutsiginController', function(apiservice, $routePara
         main.discussion.forEach(function(discussion) {
 
             discussion.html_discussion_message = $sce.trustAsHtml(discussion.discussion_message);
-            console.log(discussion.html_discussion_message)
+            
         })
 
         query_id = main.query._id;

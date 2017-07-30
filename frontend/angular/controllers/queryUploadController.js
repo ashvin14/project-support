@@ -18,9 +18,9 @@ myApp.controller('queryUploadController', function(apiservice,$window) {
 
                 tags: main.tags
             }
-            console.log(query)
+            
             apiservice.postQuery(query).then(function(response) {
-            	console.log(response)
+            	
                 window.location = "#/loggedIn/queries"
             })
         }

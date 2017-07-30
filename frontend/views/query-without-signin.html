@@ -6,6 +6,9 @@
             <li ng-class="{'active':queryCtrl.tab === 2}"><a ng-click="queryCtrl.tab = 2" role="button">closed queries</a></li>
         </ul>
     </section>
+    <div class="posts" ng-show="queryCtrl.query_length">
+        <h4>no queries posted till yet</h4>
+    </div>
     <div class="posts">
         <ul class="discussion-list">
             <li class="discussion-item" ng-repeat="query in queryCtrl.queries | statusFilter : queryCtrl.tab">

@@ -12,7 +12,7 @@
                         {{singleCtrl.query.Query_title}}
                         </h1>
             <div class="marked-down-zone">
-                <div ng-bind-html="singleCtrl.query.html_Query_details">
+                <div ng-bind-html="singleCtrl.query.html_Query_details" style="word-wrap:break-word;">
                 </div>
                 <p class="pull-right different_status" ng-class="{'status-open':singleCtrl.query.status ==='open' ,'status-closed':singleCtrl.query.status === 'closed'}">
                     {{singleCtrl.query.status}}

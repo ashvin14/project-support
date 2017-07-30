@@ -16,7 +16,7 @@ myApp.controller('singleController', function(apiservice, $routeParams, $window,
 
         main.query = response.data.Data.Query[0];
         main.discussion = response.data.Data.disscussion;
-        console.log(main.query)
+        
 
         main.query.html_Query_details = $sce.trustAsHtml(main.query.Query_details)
 

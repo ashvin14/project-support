@@ -9,7 +9,7 @@
     <div class="posts" ng-show="queryCtrl.query_length">
         <h4>no queries posted till yet</h4>
     </div>
-    <div class="posts">
+    <div class="posts" ng-hide="queryCtrl.query_length">
         <ul class="discussion-list">
             <li class="discussion-item" ng-repeat="query in queryCtrl.queries | statusFilter : queryCtrl.tab">
                 <div class="discussion-avatar">

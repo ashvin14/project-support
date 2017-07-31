@@ -22,7 +22,7 @@ myApp.controller('unSignedController', function(apiservice, $window) {
         //check if the user is loggedIn or not
         try {
             main.query_length= false;
-            console.log(main.queries)
+           
             if (response.data.status == 'notLoggedIn')
                 main.statusLogin = false
             else main.statusLogin = true
@@ -45,6 +45,7 @@ myApp.controller('unSignedController', function(apiservice, $window) {
 
         }
         catch(err){
+            console.log(err)
             main.query_length = true;
         }
 
@@ -78,7 +79,7 @@ myApp.controller('SignedController', function(apiservice, $window) {
             for (var query in main.queries) {
                 
 
-
+                console.log("hghg")
                 main.queries[query].tags = main.queries[query].tags[0].split(',');
 
             }
@@ -89,6 +90,7 @@ myApp.controller('SignedController', function(apiservice, $window) {
 
 
         } catch (err) {
+            console.log(err)
 
             main.query_length =true;
 
